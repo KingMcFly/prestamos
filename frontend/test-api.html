@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test API Connection</title>
+</head>
+<body>
+    <h1>Prueba de Conexión API</h1>
+    <button onclick="testAPI()">Probar Conexión</button>
+    <pre id="result"></pre>
+    
+    <script>
+        const API_URL = 'http://192.168.1.180:8012/tuniche_api';
+        
+        async function testAPI() {
+            const resultEl = document.getElementById('result');
+            resultEl.textContent = 'Probando conexión...';
+            
+            try {
+                const response = await fetch(`${API_URL}/employees.php`);
+                const data = await response.json();
+                resultEl.textContent = `✅ Conexión exitosa!\n\nRespuesta:\n${JSON.stringify(data, null, 2)}`;
+            } catch (error) {
+                resultEl.textContent = `❌ Error de conexión:\n${error.message}\n\nAsegúrate de que:\n1. XAMPP esté corriendo\n2. La carpeta tuniche_api exista en htdocs\n3. El firewall permita el puerto 8012`;
+            }
+        }
+    </script>
+</body>
+</html>
